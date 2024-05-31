@@ -4,70 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asaf Dayan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            text-align: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            font-family: 'Noto Sans', sans-serif;
         }
         .content {
-            padding: 20px;
+            text-align: center;
+            color: white;
         }
-        h1, h2 {
-            margin: 0;
-            padding: 10px 0;
+        .linkedin-logo {
+            width: 24px;
+            height: auto;
+            vertical-align: middle;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            padding: 10px 20px;
-            border: none;
-            background-color: #333;
-            color: #fff;
-            border-radius: 5px;
-            cursor: pointer;
+        a {
+            color: white;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
     <div class="content">
-        <h1>Artistibamm</h1>
-        <h2>WE CREATE, PRESENT, PERFORM</h2>
-        <h3>Video Art: Frank Dean</h3>
-        <h3>Sculpture: Tristen Rob</h3>
-        <div class="form-group">
-            <h2>Updates</h2>
-            <form>
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name">
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="text" id="phone" name="phone">
-                </div>
-                <div class="form-group">
-                    <label for="message">Why do you want to join the collective? What do you create or work in?</label>
-                    <textarea id="message" name="message"></textarea>
-                </div>
-                <button type="submit">Submit</button>
-            </form>
-            <p>Thank you! We will get back to you soon.</p>
-        </div>
+        <h1>Asaf Dayan</h1>
+        <p>Email: <a href="mailto:hello@dayanasf.com">hello@dayanasf.com</a></p>
+        <p>
+            <a href="https://www.linkedin.com/in/your-linkedin-profile" target="_blank">
+                <img class="linkedin-logo" src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg" alt="LinkedIn Logo">
+                LinkedIn
+            </a>
+        </p>
     </div>
 </body>
 </html>
