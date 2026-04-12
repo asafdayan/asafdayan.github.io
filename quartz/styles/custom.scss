@@ -1,3 +1,156 @@
 @use "./base.scss";
 
-// put your custom CSS here!
+// ── RTL ──
+article.popover-hint {
+  direction: rtl;
+  text-align: right;
+}
+
+// ── Typography & Content ──
+article {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--dark);
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    margin-top: 2em;
+    margin-bottom: 0.6em;
+  }
+
+  h1 {
+    font-size: 1.9rem;
+    padding-bottom: 0.4em;
+    border-bottom: 1px solid var(--lightgray);
+  }
+
+  h2 {
+    font-size: 1.45rem;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid var(--lightgray);
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    border-bottom: none;
+  }
+
+  p, li {
+    unicode-bidi: plaintext;
+  }
+
+  strong {
+    font-weight: 650;
+    color: var(--dark);
+  }
+}
+
+// ── Math ──
+.math, .katex, .katex-display, .katex-html {
+  direction: ltr !important;
+  unicode-bidi: isolate;
+}
+
+.katex-display {
+  text-align: center !important;
+  margin: 1.6em 0;
+  padding: 0.4em 0;
+}
+
+// ── Images ──
+article img {
+  display: block;
+  margin: 2em auto;
+  max-width: 90%;
+  border-radius: 8px;
+}
+
+// ── Blockquotes ──
+article blockquote {
+  background: var(--highlight);
+  border-right: 3px solid var(--secondary);
+  border-left: none;
+  padding: 0.8em 1.2em;
+  margin: 1.2em 0;
+  font-style: italic;
+  color: var(--gray);
+  border-radius: 0 6px 6px 0;
+}
+
+// ── Page title ──
+.page-title {
+  direction: rtl;
+  text-align: right;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.article-title {
+  direction: rtl;
+  text-align: right;
+}
+
+// ── TOC ──
+.toc {
+  direction: rtl;
+  text-align: right;
+
+  & > h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--gray);
+    font-weight: 600;
+  }
+
+  ul > li > a {
+    font-size: 0.9rem;
+    color: var(--darkgray);
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: var(--secondary);
+    }
+  }
+}
+
+// ── Explorer ──
+.explorer {
+  direction: rtl;
+  text-align: right;
+}
+
+// ── Sidebar ──
+.left.sidebar {
+  text-align: right;
+}
+
+// ── Global polish ──
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Slightly softer content meta
+.content-meta {
+  font-size: 0.85rem;
+  color: var(--gray);
+}
+
+// Clean footer
+footer {
+  border-top: 1px solid var(--lightgray);
+  margin-top: 3em;
+  padding-top: 1.2em;
+}
+
+// Smooth link transitions
+a {
+  transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+// Search bar
+.search-bar {
+  border-radius: 8px;
+}
