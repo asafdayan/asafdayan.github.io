@@ -26,6 +26,9 @@ jobs:
         run: |
           mkdir _site
           cp index.html _site/
+          cp three.r134.min.js _site/
+          cp vanta.clouds2.min.js _site/
+          cp -R gallery _site/gallery
           cp -R smith _site/smith
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
