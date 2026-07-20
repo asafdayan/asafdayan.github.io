@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Smith Chart Helper</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="chart-stage" aria-label="Smith chart canvas">
+        <div class="chart-header">
+          <div>
+            <h1>Smith Chart Helper</h1>
+            <p>Interactive matching workspace</p>
+          </div>
+          <div class="readout" id="status">Ready</div>
+        </div>
+        <canvas id="smithCanvas" width="980" height="980"></canvas>
+      </section>
+
+      <aside class="controls" aria-label="Smith chart controls">
+        <section class="panel">
+          <h2>Chart</h2>
+          <div class="row">
+            <label>
+              Domain
+              <select id="domain">
+                <option value="z">impedance z</option>
+                <option value="y">admittance y</option>
+              </select>
+            </label>
+            <button id="setDomain">Set</button>
+            <button id="undo">Undo</button>
+          </div>
+          <div class="grid-buttons">
+            <button id="clearCurves">Clear Curves</button>
+            <button id="clearMarks">Clear Marks</button>
+            <button id="clearIntersections">Clear I</button>
+            <button id="clearAll">Clear All</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Point</h2>
+          <div class="row">
+            <label>
+              Type
+              <select id="pointKind">
+                <option value="z">z</option>
+                <option value="y" selected>y</option>
+              </select>
+            </label>
+            <label class="grow">
+              Value
+              <input id="pointValue" value="2+j" spellcheck="false">
+            </label>
+            <label>
+              Label
+              <input id="pointLabel" value="A" spellcheck="false">
+            </label>
+          </div>
+          <button class="wide" id="plotPoint">Plot Point</button>
+          <button class="wide" id="drawVswr">Draw VSWR</button>
+        </section>
+
+        <section class="panel">
+          <h2>Intersection</h2>
+          <div class="row">
+            <label>
+              Curve
+              <select id="targetKind">
+                <option value="g">g</option>
+                <option value="b">b</option>
+                <option value="r">r</option>
+                <option value="x">x</option>
+              </select>
+            </label>
+            <label class="grow">
+              Value
+              <input id="targetValue" value="1" spellcheck="false">
+            </label>
+            <button id="findIntersections">Find</button>
+          </div>
+          <select id="intersectionList" size="4" aria-label="Intersections"></select>
+        </section>
+
+        <section class="panel">
+          <h2>Move On VSWR Circle</h2>
+          <div class="row">
+            <label>
+              I#
+              <input id="gotoIndex" value="1" inputmode="numeric">
+            </label>
+            <label>
+              Direction
+              <select id="gotoDirection">
+                <option value="generator">generator</option>
+                <option value="load">load</option>
+              </select>
+            </label>
+            <button id="goToIntersection">Go To I</button>
+          </div>
+          <div class="row">
+            <label>
+              Direction
+              <select id="rollDirection">
+                <option value="generator">generator</option>
+                <option value="load">load</option>
+              </select>
+            </label>
+            <label class="grow">
+              Length in lambda
+              <input id="rollLength" value="0.125" spellcheck="false">
+            </label>
+            <button id="roll">Roll</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Stub Length</h2>
+          <div class="row">
+            <label>
+              End
+              <select id="stubType">
+                <option value="short">short</option>
+                <option value="open">open</option>
+              </select>
+            </label>
+            <label>
+              Type
+              <select id="stubKind">
+                <option value="y">y</option>
+                <option value="z">z</option>
+              </select>
+            </label>
+            <label class="grow">
+              Value
+              <input id="stubValue" value="-j" spellcheck="false">
+            </label>
+            <button id="drawStub">Draw Stub</button>
+          </div>
+        </section>
+
+        <section class="panel output-panel">
+          <h2>Output</h2>
+          <pre id="log">Welcome. Enter a normalized z or y point and build the chart step by step.</pre>
+        </section>
+      </aside>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,17 +1,15 @@
-# Quartz v4
+# Smith Chart Helper
 
-> “[One] who works with the door open gets all kinds of interruptions, but [they] also occasionally gets clues as to what the world is and what might be important.” — Richard Hamming
+Static browser version of the Smith chart helper.
 
-Quartz is a set of tools that helps you publish your [digital garden](https://jzhao.xyz/posts/networked-thought) and notes as a website for free.
+Open `index.html` in a browser. No install step is required.
 
-🔗 Read the documentation and get started: https://quartz.jzhao.xyz/
+Features:
 
-[Join the Discord Community](https://discord.gg/cRFFHYye7t)
-
-## Sponsors
-
-<p align="center">
-  <a href="https://github.com/sponsors/jackyzha0">
-    <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
-  </a>
-</p>
+- Plot normalized impedance `z` or admittance `y`
+- Draw a constant VSWR circle
+- Find intersections with `r`, `x`, `g`, or `b` curves
+- Roll toward generator or load by a length in wavelengths
+- Read the outer wavelength scale with radial guide lines
+- Draw short/open stub length
+- Undo and clear specific layers

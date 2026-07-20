@@ -1,0 +1,274 @@
+:root {
+  color-scheme: light;
+  --bg: #eef3f7;
+  --ink: #111a20;
+  --muted: #5b6972;
+  --panel: rgba(255, 255, 255, 0.88);
+  --line: rgba(185, 199, 207, 0.62);
+  --soft: #f7fafb;
+  --accent: #0b67e3;
+  --accent-2: #00a37a;
+  --orange: #e8781a;
+  --green: #208840;
+  --purple: #8a2aa3;
+  --red: #c93935;
+  --shadow: 0 24px 70px rgba(16, 33, 44, 0.16);
+  --small-shadow: 0 10px 28px rgba(16, 33, 44, 0.10);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(23, 105, 224, 0.10), transparent 32%),
+    linear-gradient(135deg, #f8fafb 0%, var(--bg) 48%, #e8eef0 100%);
+  color: var(--ink);
+  font-family: "SF Pro Text", "Aptos", "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  min-height: 28px;
+  border: 1px solid rgba(154, 172, 183, 0.55);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--ink);
+  cursor: pointer;
+  padding: 4px 9px;
+  font-weight: 650;
+  letter-spacing: 0;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 1px 2px rgba(25, 38, 45, 0.06);
+  transition: transform 120ms ease, border-color 120ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+
+button:hover {
+  border-color: rgba(11, 103, 227, 0.46);
+  background: #fff;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.95) inset, 0 6px 14px rgba(16, 33, 44, 0.08);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+input,
+select {
+  width: 100%;
+  min-height: 28px;
+  border: 1px solid rgba(168, 185, 195, 0.68);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+  padding: 4px 7px;
+  box-shadow: 0 1px 0 rgba(18, 32, 40, 0.03) inset;
+}
+
+input:focus,
+select:focus,
+button:focus-visible {
+  outline: 2px solid rgba(23, 105, 224, 0.25);
+  outline-offset: 1px;
+  border-color: rgba(23, 105, 224, 0.65);
+}
+
+label {
+  display: grid;
+  gap: 2px;
+  min-width: 58px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-family: "SF Pro Display", "Aptos Display", "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 28px;
+  font-weight: 760;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 780;
+  text-transform: uppercase;
+  letter-spacing: 0.055em;
+  color: #283840;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: minmax(540px, 1fr) 360px;
+  gap: 12px;
+  min-height: 100vh;
+  padding: 12px;
+}
+
+.chart-stage {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 10px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(247, 251, 252, 0.72)),
+    rgba(255, 255, 255, 0.74);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+.chart-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 42px;
+}
+
+.chart-header p {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 520;
+}
+
+.readout {
+  max-width: 380px;
+  color: #fff;
+  background: linear-gradient(135deg, #10212b, #274654);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 650;
+  text-align: right;
+  box-shadow: var(--small-shadow);
+}
+
+#smithCanvas {
+  width: 100%;
+  height: min(88vh, calc(100vw - 420px));
+  min-height: 540px;
+  border: 1px solid rgba(203, 216, 222, 0.9);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 18px 42px rgba(20, 34, 42, 0.12);
+}
+
+.controls {
+  display: grid;
+  align-content: start;
+  gap: 7px;
+  overflow-y: auto;
+  max-height: calc(100vh - 24px);
+  padding-right: 2px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 9px;
+  box-shadow: var(--small-shadow);
+  backdrop-filter: blur(10px);
+}
+
+.panel:nth-child(2) button.wide:first-of-type,
+#findIntersections,
+#goToIntersection,
+#roll,
+#drawStub {
+  border-color: rgba(11, 103, 227, 0.28);
+  background: #0b67e3;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(11, 103, 227, 0.22);
+}
+
+.panel:nth-child(2) button.wide:first-of-type:hover,
+#findIntersections:hover,
+#goToIntersection:hover,
+#roll:hover,
+#drawStub:hover {
+  box-shadow: 0 10px 22px rgba(11, 103, 227, 0.28);
+}
+
+.row {
+  display: flex;
+  align-items: end;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+
+.grow {
+  flex: 1;
+}
+
+.wide {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.grid-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+
+#intersectionList {
+  width: 100%;
+  min-height: 66px;
+  margin-top: 4px;
+  padding: 4px;
+  border: 1px solid rgba(168, 185, 195, 0.68);
+  border-radius: 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: #fbfcfd;
+}
+
+.output-panel pre {
+  overflow: auto;
+  max-height: 118px;
+  min-height: 82px;
+  margin: 0;
+  padding: 8px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0f1c22, #1b2c34);
+  color: #eaf2ef;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.28;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 980px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  #smithCanvas {
+    height: min(90vw, 720px);
+    min-height: 360px;
+  }
+}
