@@ -6,154 +6,43 @@
     <title>asafdayan</title>
     <style>
       html,
-      body {
+      body,
+      #globe {
         width: 100%;
         height: 100%;
         margin: 0;
+      }
+
+      body {
         overflow: hidden;
         background: #05070d;
       }
 
-      canvas {
-        display: block;
-        width: 100vw;
-        height: 100vh;
+      #globe {
+        position: fixed;
+        inset: 0;
       }
     </style>
   </head>
   <body>
-    <canvas id="field" aria-hidden="true"></canvas>
+    <div id="globe" aria-hidden="true"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
     <script>
-      const canvas = document.querySelector("#field")
-      const ctx = canvas.getContext("2d")
-      const pointer = { x: 0, y: 0, active: false }
-      const particles = []
-      let width = 0
-      let height = 0
-      let pixelRatio = 1
-      let animationId = 0
-
-      function resize() {
-        pixelRatio = Math.min(window.devicePixelRatio || 1, 2)
-        width = window.innerWidth
-        height = window.innerHeight
-        canvas.width = Math.floor(width * pixelRatio)
-        canvas.height = Math.floor(height * pixelRatio)
-        ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0)
-        seed()
-      }
-
-      function seed() {
-        particles.length = 0
-        const count = Math.min(900, Math.max(260, Math.floor((width * height) / 1700)))
-        for (let i = 0; i < count; i += 1) {
-          particles.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            z: Math.random(),
-            vx: (Math.random() - 0.5) * 0.14,
-            vy: (Math.random() - 0.5) * 0.14,
-            phase: Math.random() * Math.PI * 2,
-          })
-        }
-      }
-
-      function draw(now) {
-        const t = now * 0.001
-        const bg = ctx.createRadialGradient(width * 0.52, height * 0.42, 0, width * 0.52, height * 0.42, Math.max(width, height) * 0.75)
-        bg.addColorStop(0, "#18213b")
-        bg.addColorStop(0.45, "#0b1020")
-        bg.addColorStop(1, "#04060b")
-        ctx.fillStyle = bg
-        ctx.fillRect(0, 0, width, height)
-
-        ctx.save()
-        ctx.globalCompositeOperation = "lighter"
-
-        for (const p of particles) {
-          const depth = 0.35 + p.z * 1.6
-          const driftX = Math.sin(t * 0.38 + p.phase) * depth
-          const driftY = Math.cos(t * 0.31 + p.phase * 0.7) * depth
-          p.x += p.vx * (0.4 + p.z) + driftX * 0.01
-          p.y += p.vy * (0.4 + p.z) + driftY * 0.01
-
-          if (pointer.active) {
-            const dx = p.x - pointer.x
-            const dy = p.y - pointer.y
-            const d2 = dx * dx + dy * dy
-            if (d2 < 36000 && d2 > 1) {
-              const force = (1 - d2 / 36000) * 0.045
-              p.vx += (dx / Math.sqrt(d2)) * force
-              p.vy += (dy / Math.sqrt(d2)) * force
-            }
-          }
-
-          p.vx *= 0.992
-          p.vy *= 0.992
-          if (p.x < -20) p.x = width + 20
-          if (p.x > width + 20) p.x = -20
-          if (p.y < -20) p.y = height + 20
-          if (p.y > height + 20) p.y = -20
-
-          const px = p.x + driftX
-          const py = p.y + driftY
-          const size = 0.55 + p.z * 1.9
-          const alpha = 0.18 + p.z * 0.5
-          ctx.beginPath()
-          ctx.fillStyle = `rgba(${80 + p.z * 90}, ${170 + p.z * 55}, 255, ${alpha})`
-          ctx.arc(px, py, size, 0, Math.PI * 2)
-          ctx.fill()
-        }
-
-        const maxDist = Math.min(130, Math.max(76, width / 12))
-        for (let i = 0; i < particles.length; i += 1) {
-          const a = particles[i]
-          for (let j = i + 1; j < particles.length; j += 1) {
-            const b = particles[j]
-            const dx = a.x - b.x
-            const dy = a.y - b.y
-            const d = Math.hypot(dx, dy)
-            if (d < maxDist) {
-              const alpha = (1 - d / maxDist) * 0.08 * (0.6 + a.z + b.z)
-              ctx.strokeStyle = `rgba(92, 197, 255, ${alpha})`
-              ctx.lineWidth = 0.75
-              ctx.beginPath()
-              ctx.moveTo(a.x, a.y)
-              ctx.lineTo(b.x, b.y)
-              ctx.stroke()
-            }
-          }
-        }
-
-        const halo = ctx.createRadialGradient(pointer.x || width / 2, pointer.y || height / 2, 0, pointer.x || width / 2, pointer.y || height / 2, 260)
-        halo.addColorStop(0, pointer.active ? "rgba(0, 210, 180, 0.13)" : "rgba(50, 110, 255, 0.08)")
-        halo.addColorStop(1, "rgba(0, 0, 0, 0)")
-        ctx.fillStyle = halo
-        ctx.fillRect(0, 0, width, height)
-        ctx.restore()
-
-        animationId = requestAnimationFrame(draw)
-      }
-
-      window.addEventListener("resize", resize)
-      window.addEventListener("pointermove", (event) => {
-        pointer.x = event.clientX
-        pointer.y = event.clientY
-        pointer.active = true
+      VANTA.GLOBE({
+        el: "#globe",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.0,
+        minWidth: 200.0,
+        scale: 1.0,
+        scaleMobile: 1.0,
+        color: 0x3d8cff,
+        color2: 0x00d6a3,
+        backgroundColor: 0x05070d,
+        size: 1.15,
       })
-      window.addEventListener("pointerleave", () => {
-        pointer.active = false
-      })
-      document.addEventListener("visibilitychange", () => {
-        if (document.hidden) {
-          cancelAnimationFrame(animationId)
-        } else {
-          animationId = requestAnimationFrame(draw)
-        }
-      })
-
-      resize()
-      animationId = requestAnimationFrame(draw)
     </script>
   </body>
 </html>
