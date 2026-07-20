@@ -25,7 +25,8 @@ jobs:
       - name: Prepare static site
         run: |
           mkdir _site
-          cp index.html style.css app.js _site/
+          cp index.html _site/
+          cp -R smith _site/smith
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
