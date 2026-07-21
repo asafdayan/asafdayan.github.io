@@ -9,9 +9,9 @@
       :root {
         color-scheme: dark;
         --ink: #f8fbff;
-        --muted: rgba(248, 251, 255, 0.72);
-        --line: rgba(255, 255, 255, 0.18);
-        --panel: rgba(5, 7, 13, 0.42);
+        --muted: rgba(248, 251, 255, 0.62);
+        --line: rgba(191, 220, 232, 0.16);
+        --panel: rgba(2, 5, 9, 0.52);
         --accent: #5ca6ca;
       }
 
@@ -47,8 +47,11 @@
         inset: 0;
         z-index: -1;
         background:
-          radial-gradient(circle at 50% 45%, rgba(92, 166, 202, 0.12), transparent 34%),
-          linear-gradient(180deg, rgba(5, 7, 13, 0.18), rgba(5, 7, 13, 0.72));
+          linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          radial-gradient(circle at 52% 46%, rgba(92, 166, 202, 0.1), transparent 34%),
+          linear-gradient(180deg, rgba(5, 7, 13, 0.24), rgba(5, 7, 13, 0.82));
+        background-size: 72px 72px, 72px 72px, auto, auto;
       }
 
       main {
@@ -59,45 +62,54 @@
       }
 
       .intro {
-        width: min(720px, 100%);
-        padding: clamp(28px, 6vw, 56px);
+        width: min(620px, 100%);
+        padding: clamp(26px, 5vw, 46px);
         border: 1px solid var(--line);
-        border-radius: 28px;
+        border-radius: 18px;
         background: var(--panel);
-        box-shadow: 0 28px 90px rgba(0, 0, 0, 0.34);
-        backdrop-filter: blur(18px);
+        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.42);
+        backdrop-filter: blur(20px);
       }
 
       .eyebrow {
-        margin: 0 0 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 26px;
         color: var(--accent);
-        font-size: 0.82rem;
+        font-size: 0.76rem;
         font-weight: 800;
-        letter-spacing: 0.14em;
+        letter-spacing: 0.18em;
         text-transform: uppercase;
       }
 
+      .eyebrow::before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #77d2f2;
+        box-shadow: 0 0 18px rgba(119, 210, 242, 0.78);
+      }
+
       h1 {
-        max-width: 10ch;
         margin: 0;
-        font-size: clamp(3rem, 11vw, 7.4rem);
-        line-height: 0.9;
+        font-size: clamp(2.4rem, 7vw, 4.8rem);
+        line-height: 0.94;
         letter-spacing: 0;
       }
 
       p {
-        max-width: 48rem;
-        margin: 24px 0 0;
+        max-width: 34rem;
+        margin: 22px 0 0;
         color: var(--muted);
-        font-size: clamp(1.05rem, 2vw, 1.28rem);
-        line-height: 1.65;
+        font-size: clamp(0.98rem, 1.6vw, 1.08rem);
+        line-height: 1.7;
       }
 
       .actions {
         display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 34px;
+        margin-top: 32px;
       }
 
       a {
@@ -107,31 +119,30 @@
       .button {
         display: inline-flex;
         align-items: center;
+        gap: 10px;
         justify-content: center;
-        min-height: 46px;
-        padding: 0 18px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        min-height: 48px;
+        padding: 0 20px;
+        border: 1px solid rgba(191, 220, 232, 0.28);
         border-radius: 999px;
-        background: #f8fbff;
-        color: #091018;
+        background: rgba(248, 251, 255, 0.94);
+        color: #071016;
         font-weight: 800;
         text-decoration: none;
-        transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+        box-shadow: 0 12px 34px rgba(4, 11, 18, 0.36);
+        transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+      }
+
+      .button::after {
+        content: "→";
+        font-size: 1.1rem;
+        line-height: 1;
       }
 
       .button:hover {
         transform: translateY(-1px);
         background: #ffffff;
-      }
-
-      .button.secondary {
-        background: rgba(255, 255, 255, 0.08);
-        color: var(--ink);
-      }
-
-      .button.secondary:hover {
-        border-color: rgba(255, 255, 255, 0.38);
-        background: rgba(255, 255, 255, 0.14);
+        box-shadow: 0 16px 42px rgba(4, 11, 18, 0.46);
       }
 
       @media (max-width: 640px) {
@@ -140,11 +151,7 @@
         }
 
         .intro {
-          border-radius: 22px;
-        }
-
-        .actions {
-          flex-direction: column;
+          border-radius: 16px;
         }
 
         .button {
@@ -157,15 +164,14 @@
     <div id="vanta-bg" aria-hidden="true"></div>
     <main>
       <section class="intro" aria-labelledby="page-title">
-        <p class="eyebrow">Curriculum Vitae</p>
-        <h1 id="page-title">Hey, I’m Asaf.</h1>
+        <p class="eyebrow">Private brief</p>
+        <h1 id="page-title">Asaf Dayan</h1>
         <p>
-          I’m an electrical engineering student building practical tools, studying waves and systems,
-          and generally trying to make complicated things feel usable.
+          Electrical engineering, signal intuition, and practical systems work. A concise profile is
+          available as a PDF.
         </p>
         <div class="actions">
-          <a class="button" href="cv.pdf" download>Download CV</a>
-          <a class="button secondary" href="cv.pdf" target="_blank" rel="noopener">Open in browser</a>
+          <a class="button" href="cv.pdf" target="_blank" rel="noopener">View CV</a>
         </div>
       </section>
     </main>
