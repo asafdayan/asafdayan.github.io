@@ -33,13 +33,6 @@
         background: #05070d;
         font-family: "Aptos Display", Satoshi, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         color: var(--ink);
-        transition: opacity 260ms ease, filter 260ms ease, transform 260ms ease;
-      }
-
-      body.opening {
-        opacity: 0;
-        filter: blur(8px);
-        transform: translateY(-12px);
       }
 
       #vanta-bg {
@@ -64,10 +57,11 @@
       }
 
       main {
-        min-height: 150vh;
+        min-height: 100vh;
       }
 
       .intro {
+        position: relative;
         min-height: 100vh;
         width: min(620px, 100%);
         margin: 0 auto;
@@ -112,7 +106,7 @@
       }
 
       .scroll-hint {
-        position: fixed;
+        position: absolute;
         left: 50%;
         bottom: clamp(34px, 8vh, 76px);
         margin: 0;
@@ -125,6 +119,145 @@
         white-space: nowrap;
       }
 
+      .cv-document {
+        min-height: 100vh;
+        padding: clamp(48px, 7vw, 96px) clamp(20px, 5vw, 72px) 64px;
+      }
+
+      .cv-resume {
+        width: min(980px, 100%);
+        margin: 0 auto;
+      }
+
+      .cv-head {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 18px 32px;
+        align-items: end;
+        padding-bottom: 22px;
+        border-bottom: 1px solid rgba(248, 251, 255, 0.16);
+      }
+
+      .cv-head h2 {
+        margin: 0;
+        font-size: clamp(2.3rem, 7vw, 4rem);
+        line-height: 0.95;
+        letter-spacing: 0;
+      }
+
+      .cv-contact {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 10px 18px;
+        color: rgba(248, 251, 255, 0.68);
+        font-size: 0.9rem;
+        font-weight: 680;
+      }
+
+      .cv-contact a {
+        color: #69d0ff;
+        text-decoration: none;
+      }
+
+      .cv-summary {
+        max-width: 820px;
+        margin: 22px 0 0;
+        color: rgba(248, 251, 255, 0.74);
+        font-size: clamp(0.98rem, 1.6vw, 1.08rem);
+        font-weight: 560;
+        line-height: 1.58;
+      }
+
+      .cv-section {
+        margin-top: 34px;
+      }
+
+      .cv-section h3 {
+        margin: 0 0 18px;
+        color: #69d0ff;
+        font-size: 0.92rem;
+        font-weight: 850;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .cv-entry {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 6px 28px;
+        padding: 0 0 20px;
+      }
+
+      .cv-entry + .cv-entry {
+        padding-top: 2px;
+      }
+
+      .cv-entry h4,
+      .cv-entry p,
+      .cv-entry ul {
+        margin: 0;
+      }
+
+      .cv-entry h4 {
+        color: rgba(248, 251, 255, 0.93);
+        font-size: 1.03rem;
+        line-height: 1.35;
+      }
+
+      .cv-date {
+        color: rgba(248, 251, 255, 0.48);
+        font-size: 0.9rem;
+        font-weight: 760;
+        white-space: nowrap;
+        transform: translateY(0.16rem);
+      }
+
+      .cv-role {
+        grid-column: 1 / -1;
+        color: rgba(248, 251, 255, 0.56);
+        font-size: 0.94rem;
+        font-style: italic;
+        font-weight: 620;
+      }
+
+      .cv-entry ul {
+        grid-column: 1 / -1;
+        display: grid;
+        gap: 5px;
+        padding-left: 1.05rem;
+        color: rgba(248, 251, 255, 0.72);
+        font-size: 0.94rem;
+        line-height: 1.48;
+      }
+
+      .cv-entry li::marker {
+        color: #69d0ff;
+      }
+
+      .cv-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .cv-line {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 18px;
+        color: rgba(248, 251, 255, 0.88);
+        font-size: 0.96rem;
+        font-weight: 760;
+      }
+
+      .cv-link {
+        width: fit-content;
+        margin: 42px auto 0;
+        display: block;
+        color: rgba(248, 251, 255, 0.64);
+        font-size: 0.9rem;
+        font-weight: 760;
+      }
+
       a {
         color: inherit;
       }
@@ -132,6 +265,35 @@
       @media (max-width: 640px) {
         .intro {
           padding: clamp(116px, 24vh, 180px) 18px 18px;
+        }
+
+        .cv-document {
+          padding: 44px 22px 56px;
+        }
+
+        .cv-head {
+          grid-template-columns: 1fr;
+          align-items: start;
+        }
+
+        .cv-contact {
+          justify-content: flex-start;
+        }
+
+        .cv-entry,
+        .cv-line {
+          grid-template-columns: 1fr;
+          gap: 5px;
+        }
+
+        .cv-date {
+          transform: none;
+        }
+      }
+
+      @media (min-width: 900px) {
+        .cv-resume {
+          padding-top: 10px;
         }
       }
     </style>
@@ -142,7 +304,107 @@
       <section class="intro" aria-labelledby="page-title">
         <h1 id="page-title"><span id="typed-name"></span><span class="cursor" aria-hidden="true"></span></h1>
         <p>Multidisciplinary system engineer.</p>
-        <p class="scroll-hint">Scroll down to open CV</p>
+        <p class="scroll-hint">Scroll down to view CV</p>
+      </section>
+      <section class="cv-document" aria-label="CV document">
+        <article class="cv-resume">
+          <header class="cv-head">
+            <h2>Asaf Dayan</h2>
+            <div class="cv-contact" aria-label="Contact">
+              <span>052-648-2121</span>
+              <span>Tel Aviv</span>
+              <a href="mailto:asaf.dayan13@gmail.com">asaf.dayan13@gmail.com</a>
+            </div>
+          </header>
+
+          <p class="cv-summary">System engineer with hands-on experience developing UAV payloads, RF and communication architectures, and field-deployed mission-critical technologies. Takes ownership of early-stage concepts and drives them from initial idea through design, integration, validation, and deployment.</p>
+
+          <section class="cv-section">
+            <h3>Experience</h3>
+            <div class="cv-entry">
+              <h4>Israeli Military Intelligence - Unit 8200</h4>
+              <span class="cv-date">2025 - Present</span>
+              <p class="cv-role">RF Systems Engineer | Innovation Lab</p>
+              <ul>
+                <li>Designed and validated RF TRX chains in airborne environments, addressing constraints such as size, power, reliability, and signal conditions.</li>
+                <li>Conducting deep technical research and evaluation of RF architectures for mission-critical applications, with focus on practical validation under real-world operational constraints.</li>
+              </ul>
+            </div>
+            <div class="cv-entry">
+              <h4>Israeli Military Intelligence - Unit 8200</h4>
+              <span class="cv-date">Oct 2023 - 2024</span>
+              <p class="cv-role">System Engineer (Reserve Service)</p>
+              <ul>
+                <li>Led the end-to-end development of a UAV-based cyber payload, from initial concept through system design and field deployment.</li>
+                <li>Evaluated and adapted commercial UAV platforms to meet specific operational needs.</li>
+              </ul>
+            </div>
+            <div class="cv-entry">
+              <h4>Israeli Military Intelligence - Unit 8200</h4>
+              <span class="cv-date">2022 - 2023</span>
+              <p class="cv-role">R&amp;D | Tactical Cyber Systems (Military Service)</p>
+              <ul>
+                <li>Took part in the development of tactical cyber systems, from early requirements through validation and field use.</li>
+                <li>Worked on cross-domain systems combining software, RF, and embedded components in constrained airborne environments.</li>
+              </ul>
+            </div>
+            <div class="cv-entry">
+              <h4>Service at Prime Minister Office</h4>
+              <span class="cv-date">2020 - 2022</span>
+              <p class="cv-role">Technical Product Manager (Military Service)</p>
+              <ul>
+                <li>Worked on VISINT surveillance systems involving electro-optical sensors, laser-based technologies, and real-time video transmission.</li>
+                <li>Evaluated commercial and in-house technologies for operational use, translating field needs into system requirements and deployment concepts.</li>
+                <li>Defined practical system constraints, including sensor performance, communication reliability, deployment workflow, and usability.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="cv-section">
+            <h3>Education</h3>
+            <div class="cv-entry">
+              <h4>Tel Aviv University</h4>
+              <span class="cv-date">2023 - 2027</span>
+              <p class="cv-role">B.Sc. in Electrical Engineering, Mandel Program for Humanities in Engineering</p>
+              <ul>
+                <li>Selective honors track combining engineering with philosophy, ethics, and the history of science.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="cv-section">
+            <h3>Volunteering</h3>
+            <div class="cv-entry">
+              <h4>Team Lead @ 8200 Ecothon (Climate Hackathon)</h4>
+              <ul>
+                <li>Led development of a QGIS plugin for assessing street walkability and helping municipalities prioritize tree planting.</li>
+                <li>Won 2nd place out of 15 teams.</li>
+              </ul>
+            </div>
+            <div class="cv-entry">
+              <h4>First Aid Attendant at Magen David Adom</h4>
+              <ul>
+                <li>Volunteered as a first aid attendant; completed ICU training in 2018.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="cv-section">
+            <h3>Awards and Certificates</h3>
+            <div class="cv-list">
+              <div class="cv-line">
+                <span>Unit 8200 Special Award</span>
+                <span class="cv-date">Apr 2024</span>
+              </div>
+              <div class="cv-line">
+                <span>WSET Level 2 Awards in Wines</span>
+                <span class="cv-date">Aug 2023</span>
+              </div>
+            </div>
+          </section>
+
+          <a class="cv-link" href="cv.pdf" target="_blank" rel="noopener">Open as PDF</a>
+        </article>
       </section>
     </main>
     <script src="../three.r134.min.js"></script>
@@ -178,39 +440,10 @@
 
       typeName()
 
-      let openStarted = false
-      let accessArmed = false
-
       if ("scrollRestoration" in window.history) {
-        window.history.scrollRestoration = "manual"
+        window.history.scrollRestoration = "auto"
       }
 
-      window.addEventListener("pageshow", () => {
-        openStarted = false
-        accessArmed = false
-        document.body.classList.remove("opening")
-        window.scrollTo(0, 0)
-        window.setTimeout(() => {
-          accessArmed = true
-        }, 700)
-      })
-
-      function openCv() {
-        if (openStarted || !accessArmed) return
-        openStarted = true
-        document.body.classList.add("opening")
-        window.setTimeout(() => {
-          window.location.href = "cv.pdf"
-        }, 220)
-      }
-
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > Math.min(window.innerHeight * 0.34, 280)) openCv()
-      }, { passive: true })
-
-      window.addEventListener("keydown", (event) => {
-        if (["ArrowDown", "PageDown", "Space", "End"].includes(event.code)) openCv()
-      })
     </script>
   </body>
 </html>
