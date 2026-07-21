@@ -19,6 +19,7 @@ const ctx = canvas.getContext("2d");
 const statusEl = document.querySelector("#status");
 const logEl = document.querySelector("#log");
 const intersectionList = document.querySelector("#intersectionList");
+let tipLabelsDrawn = new Set();
 
 const state = {
   domain: "z",
@@ -302,18 +303,29 @@ function stubImpedancePath(stubType, length) {
 }
 
 function scaleReadings(gamma) {
+  const generator = generatorScaleValue(gamma);
+  const load = mod(0.5 - generator, 0.5);
+  return {
+    generator: formatScale(generator),
+    load: formatScale(load),
+  };
+}
+
+function generatorScaleValue(gamma) {
   const shown = displayGamma(gamma);
   const a = angle(shown);
-  return {
-    generator: formatScale(mod((Math.PI - a) / (4 * Math.PI), 0.5)),
-    load: formatScale(mod((a - Math.PI) / (4 * Math.PI), 0.5)),
-  };
+  return mod((Math.PI - a) / (4 * Math.PI), 0.5);
 }
 
 function formatScale(value) {
   const rounded = Math.round(value * 1000) / 1000;
   if (Math.abs(rounded) < 1e-9) return "0";
   return rounded.toFixed(3).replace(/0+$/, "").replace(/\.$/, "");
+}
+
+function formatScaleExact(value) {
+  const rounded = Math.round(value * 1000) / 1000;
+  return rounded.toFixed(3);
 }
 
 function currentGeometry() {
@@ -334,6 +346,7 @@ function currentGeometry() {
 
 function render() {
   const geom = currentGeometry();
+  tipLabelsDrawn = new Set();
   ctx.clearRect(0, 0, geom.w, geom.h);
   const background = ctx.createLinearGradient(0, 0, geom.w, geom.h);
   background.addColorStop(0, "#ffffff");
@@ -504,6 +517,7 @@ function drawRadialGuide(mark, geom) {
   ctx.arc(point.x, point.y, 3, 0, TAU);
   ctx.fill();
   ctx.restore();
+  drawRadialTipLabel(mark.gamma, geom, mark.color || colors.guide);
 }
 
 function drawCurrentRadialGuide(geom) {
@@ -537,6 +551,56 @@ function drawCurrentRadialGuide(geom) {
   ctx.arc(point.x, point.y, 11, 0, TAU);
   ctx.stroke();
   ctx.restore();
+  drawRadialTipLabel(state.currentGamma, geom, "#111817");
+}
+
+function drawRadialTipLabel(gamma, geom, color, lane = 0) {
+  const shown = displayGamma(gamma);
+  if (abs(shown) < EPS) return;
+  const theta = angle(shown);
+  const cos = Math.cos(theta);
+  const sin = Math.sin(theta);
+  const baseR = geom.r * (1.22 + lane * 0.045);
+  const x = geom.cx + cos * baseR;
+  const y = geom.cy - sin * baseR;
+  const text = `${formatScaleExact(generatorScaleValue(gamma))}λ`;
+  if (tipLabelsDrawn.has(text)) return;
+  tipLabelsDrawn.add(text);
+  const padX = 5;
+
+  ctx.save();
+  ctx.font = "700 11px system-ui";
+  const labelWidth = ctx.measureText(text).width + padX * 2;
+  const labelHeight = 17;
+  ctx.textBaseline = "middle";
+  ctx.textAlign = cos > 0.28 ? "left" : cos < -0.28 ? "right" : "center";
+
+  const boxX = ctx.textAlign === "left" ? x - padX : ctx.textAlign === "right" ? x - labelWidth + padX : x - labelWidth / 2;
+  const boxY = y - labelHeight / 2;
+  ctx.fillStyle = "rgba(255, 255, 255, 0.86)";
+  ctx.strokeStyle = "rgba(185, 199, 207, 0.72)";
+  ctx.lineWidth = 1;
+  roundedRect(boxX, boxY, labelWidth, labelHeight, 5);
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.fillStyle = color;
+  ctx.fillText(text, x, y + 0.5);
+  ctx.restore();
+}
+
+function roundedRect(x, y, w, h, r) {
+  const radius = Math.min(r, w / 2, h / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.lineTo(x + w - radius, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+  ctx.lineTo(x + w, y + h - radius);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+  ctx.lineTo(x + radius, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+  ctx.lineTo(x, y + radius);
+  ctx.quadraticCurveTo(x, y, x + radius, y);
 }
 
 function drawPath(points, geom, color, style = "solid", width = 2) {
