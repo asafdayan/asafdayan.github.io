@@ -31,6 +31,7 @@ jobs:
           cp vanta.clouds2.min.js _site/
           cp -R gallery _site/gallery
           cp -R smith _site/smith
+          cp -R cv _site/cv
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
