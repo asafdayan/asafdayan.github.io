@@ -179,9 +179,24 @@
       typeName()
 
       let openStarted = false
+      let accessArmed = false
+
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual"
+      }
+
+      window.addEventListener("pageshow", () => {
+        openStarted = false
+        accessArmed = false
+        document.body.classList.remove("opening")
+        window.scrollTo(0, 0)
+        window.setTimeout(() => {
+          accessArmed = true
+        }, 700)
+      })
 
       function openCv() {
-        if (openStarted) return
+        if (openStarted || !accessArmed) return
         openStarted = true
         document.body.classList.add("opening")
         window.setTimeout(() => {
